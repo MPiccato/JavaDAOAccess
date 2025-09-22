@@ -46,7 +46,7 @@ public class DentistDAOH2 implements IDao<Dentist> {
 
             while (rs.next()) {
                 dentist.setId(rs.getInt(1)); //Recupero el ID generado
-                System.out.println("Este es el odontólogo que se guardó: " + dentist);
+                System.out.println("Este es el odontólogo que se guardó: " + dentist.getName() + " " + dentist.getLastName());
             }
 
         } catch (Exception e){
