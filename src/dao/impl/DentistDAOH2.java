@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DentistDAOH2 implements IDao<Dentist> {
@@ -19,6 +20,8 @@ public class DentistDAOH2 implements IDao<Dentist> {
     private static final String SQL_UPDATE = "UPDATE DENTIST SET REGISTRATION = ?, NAME = ?,LASTNAME = ? WHERE ID = ?;";
 
     private static final String SQL_DELETE = "DELETE * FROM DENTIST WHERE ID = ?";
+
+    private static final String SQL_FIND_ALL = "SELECT * FROM DENTIST";
 
 
 
@@ -155,6 +158,35 @@ public class DentistDAOH2 implements IDao<Dentist> {
 
     @Override
     public List<Dentist> findAll() {
-        return List.of();
+        Connection connection = null;
+        List<Dentist> dentistList = new ArrayList<>();
+        Dentist dentist = null;
+
+        try {
+            connection = BD.getConnection();
+
+            PreparedStatement psFindALL = connection.prepareStatement(SQL_FIND_ALL);
+
+            ResultSet rsALL = psFindALL.executeQuery();
+
+            while (rsALL.next()) {
+                dentist = new Dentist(rsALL.getInt(1),rsALL.getInt(2),
+                        rsALL.getString(3),rsALL.getString(4));
+                dentistList.add(dentist);
+                System.out.println("Encontramos los dentistas con id: " + dentist.getId() +
+                        ", Matrícula: " + dentist.getRegistration() + ", Nombre: " + dentist.getName() +
+                        ", Apellido: " + dentist.getLastName());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return dentistList;
     }
 }
