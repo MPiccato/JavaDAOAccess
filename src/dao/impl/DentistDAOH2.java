@@ -18,6 +18,7 @@ public class DentistDAOH2 implements IDao<Dentist> {
 
     private static final String SQL_UPDATE = "UPDATE DENTIST SET REGISTRATION = ?, NAME = ?,LASTNAME = ? WHERE ID = ?;";
 
+    private static final String SQL_DELETE = "DELETE * FROM DENTIST WHERE ID = ?";
 
 
 
@@ -113,7 +114,7 @@ public class DentistDAOH2 implements IDao<Dentist> {
             psUpdate.setString(3,dentist.getLastName());
             psUpdate.setInt(4,dentist.getId());
             psUpdate.execute();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -128,6 +129,27 @@ public class DentistDAOH2 implements IDao<Dentist> {
 
     @Override
     public void delete(Integer id) {
+
+        Connection connection = null;
+
+        try {
+
+            connection = BD.getConnection();
+
+            PreparedStatement psDelete = connection.prepareStatement(SQL_DELETE);
+
+            psDelete.setInt(1,id);
+            psDelete.execute();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
