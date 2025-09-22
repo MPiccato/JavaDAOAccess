@@ -5,7 +5,7 @@ import model.Dentist;
 
 import java.util.List;
 
-public class DestistDAOH2 implements IDao<Dentist> {
+public class DentistDAOH2 implements IDao<Dentist> {
     @Override
     public Dentist save(Dentist dentist) {
         return null;
