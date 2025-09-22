@@ -14,6 +14,9 @@ public class DentistDAOH2 implements IDao<Dentist> {
 
     private static final String SQL_INSERT = "INSERT INTO DENTIST VALUES (?,?,?);";
 
+    private static final String SQL_SEARCH_BY_ID = "SELECT * FROM DENTIST WHERE ID = ?";
+
+
 
 
     @Override
@@ -40,11 +43,6 @@ public class DentistDAOH2 implements IDao<Dentist> {
                 System.out.println("Este es el odontólogo que se guardó: " + dentist);
             }
 
-
-
-
-
-
         } catch (Exception e){
             e.printStackTrace();
         } finally {
@@ -60,7 +58,47 @@ public class DentistDAOH2 implements IDao<Dentist> {
 
     @Override
     public Dentist findById(Integer id) {
-        return null;
+       Connection connection = null;
+
+
+
+       Dentist dentist = null;
+
+       try {
+           connection = BD.getConnection();
+
+           PreparedStatement psFindById = connection.prepareStatement(SQL_SEARCH_BY_ID, Statement.RETURN_GENERATED_KEYS);
+
+           psFindById.setInt(1, id);
+           psFindById.execute();
+
+           ResultSet rsSearch = psFindById.executeQuery();
+
+           while (rsSearch.next()) {
+               dentist = new Dentist(rsSearch.getInt(1),
+                       rsSearch.getInt(2),rsSearch.getString(3),
+                       rsSearch.getString(4));
+               System.out.println("Consultamos el odontólogo con id: " + rsSearch.getInt(1)
+                                    +", Nombre: " + rsSearch.getString(3) +
+                       "  Apellido: " + rsSearch.getString(4));
+           }
+
+
+
+
+       } catch (Exception e) {
+           e.printStackTrace();
+       } finally {
+           try {
+               connection.close();
+
+           } catch (Exception e) {
+               e.printStackTrace();
+           }
+
+
+       }
+       return dentist;
     }
 
     @Override

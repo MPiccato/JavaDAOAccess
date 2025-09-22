@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DentistService {
 
-    private IDao<Dentist> dentistIDao;
+    private final IDao<Dentist> dentistIDao;
 
     public DentistService(IDao<Dentist> dentistIDao) {
         this.dentistIDao = dentistIDao;
