@@ -21,6 +21,10 @@ public class Dentist {
         this.lastName = lastName;
     }
 
+    public Dentist() {
+
+    }
+
     public Integer getId() {
         return id;
     }
