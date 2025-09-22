@@ -16,6 +16,8 @@ public class DentistDAOH2 implements IDao<Dentist> {
 
     private static final String SQL_SEARCH_BY_ID = "SELECT * FROM DENTIST WHERE ID = ?";
 
+    private static final String SQL_UPDATE = "UPDATE DENTIST SET REGISTRATION = ?, NAME = ?,LASTNAME = ? WHERE ID = ?;";
+
 
 
 
@@ -82,19 +84,15 @@ public class DentistDAOH2 implements IDao<Dentist> {
                                     +", Nombre: " + rsSearch.getString(3) +
                        "  Apellido: " + rsSearch.getString(4));
            }
-
-
-
-
-       } catch (Exception e) {
-           e.printStackTrace();
-       } finally {
-           try {
-               connection.close();
-
            } catch (Exception e) {
                e.printStackTrace();
-           }
+           } finally {
+               try {
+                   connection.close();
+
+               } catch (Exception e) {
+                   e.printStackTrace();
+               }
 
 
        }
@@ -103,6 +101,28 @@ public class DentistDAOH2 implements IDao<Dentist> {
 
     @Override
     public void update(Dentist dentist) {
+        Connection connection = null;
+
+
+        try {
+            connection = BD.getConnection();
+            PreparedStatement psUpdate = connection.prepareStatement(SQL_UPDATE);
+
+            psUpdate.setInt(1,dentist.getRegistration());
+            psUpdate.setString(2,dentist.getName());
+            psUpdate.setString(3,dentist.getLastName());
+            psUpdate.setInt(4,dentist.getId());
+            psUpdate.execute();
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
