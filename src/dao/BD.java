@@ -32,12 +32,15 @@ public class BD {
 
     public static void createTable() {
 
+
+
         Connection connection = null;
 
         try {
 
             connection = getConnection();
 
+            // Creo las tablas de dentista y paciente
             Statement statement = connection.createStatement();
             statement.execute(SQL_CREATE_TABLE_DENTIST);
             statement.execute(SQL_CREATE_TABLE_PATIENT);
