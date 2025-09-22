@@ -13,13 +13,13 @@ import java.util.List;
 public class DentistDAOH2 implements IDao<Dentist> {
 
 
-    private static final String SQL_INSERT = "INSERT INTO DENTIST VALUES (?,?,?);";
+    private static final String SQL_INSERT = "INSERT INTO DENTIST (REGISTRATION, NAME, LASTNAME) VALUES (?,?,?);";
 
     private static final String SQL_SEARCH_BY_ID = "SELECT * FROM DENTIST WHERE ID = ?";
 
     private static final String SQL_UPDATE = "UPDATE DENTIST SET REGISTRATION = ?, NAME = ?,LASTNAME = ? WHERE ID = ?;";
 
-    private static final String SQL_DELETE = "DELETE * FROM DENTIST WHERE ID = ?";
+    private static final String SQL_DELETE = "DELETE FROM DENTIST WHERE ID = ?";
 
     private static final String SQL_FIND_ALL = "SELECT * FROM DENTIST";
 
@@ -73,7 +73,7 @@ public class DentistDAOH2 implements IDao<Dentist> {
        try {
            connection = BD.getConnection();
 
-           PreparedStatement psFindById = connection.prepareStatement(SQL_SEARCH_BY_ID, Statement.RETURN_GENERATED_KEYS);
+           PreparedStatement psFindById = connection.prepareStatement(SQL_SEARCH_BY_ID);
 
            psFindById.setInt(1, id);
            psFindById.execute();

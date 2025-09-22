@@ -6,19 +6,17 @@ import java.sql.Statement;
 
 public class BD {
 
-    private static final String  SQL_CREATE_TABLE_DENTIST = "DROP TABLE IF EXISTS;  " +
-            "CREATE TABLE DENTIST " +
-            "(" +
-            "ID INT AUTOINCREMENT NOT NULL, " +
+    private static final String  SQL_CREATE_TABLE_DENTIST = "DROP TABLE IF EXISTS DENTIST;" +
+            "CREATE TABLE DENTIST ( " +
+            "ID INT AUTO_INCREMENT PRIMARY KEY," +
             "REGISTRATION INT NOT NULL," +
             "NAME VARCHAR(100) NOT NULL," +
-            "LASTNAME VARCHAR(100) NOT NULL" +
-            ");";
+            "LASTNAME VARCHAR(100) NOT NULL);";
 
-    private static final String SQL_CREATE_TABLE_PATIENT = "DROP TABLE IF EXISTS; " +
+    private static final String SQL_CREATE_TABLE_PATIENT = "DROP TABLE IF EXISTS PATIENT; " +
             "CREATE TABLE PATIENT "
             + "("
-            + "ID INT AUTOINCREMENT NOT NULL,"
+            + "ID INT AUTO_INCREMENT NOT NULL,"
             + "NAME VARCHAR(100) NOT NULL,"
             + "LASTNAME VARCHAR(100) NOT NULL,"
             + "CARDIDENTITY VARCHAR(100) NOT NULL,"
