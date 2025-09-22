@@ -14,7 +14,7 @@ public class Dentist {
         this.lastName = lastName;
     }
 
-    // Segundo cosntructor sin id porque quiero que lo genere la base de datos automáticamente
+    // Segundo constructor sin id porque quiero que lo genere la base de datos automáticamente
     public Dentist(Integer registration, String name, String lastName) {
         this.registration = registration;
         this.name = name;
